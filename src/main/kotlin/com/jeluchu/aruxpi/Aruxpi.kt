@@ -6,6 +6,7 @@ import com.jeluchu.aruxpi.models.anime.AnimeInfoEntity
 import com.jeluchu.aruxpi.models.schedule.AnimesInDay
 import com.jeluchu.aruxpi.models.schedule.Week
 import com.jeluchu.jikax.Jikax
+import com.jeluchu.jikax.models.anime.AnimeData
 import com.jeluchu.jikax.models.character.CharacterInfo
 import com.jeluchu.jikax.models.schedule.Day
 import com.jeluchu.jikax.models.staff.StaffInfo
@@ -55,27 +56,28 @@ object Aruxpi {
             }
         }
 
-        val animeInfo = AnimeInfoEntity()
+        lateinit var jikaxInfo: AnimeData
         val staff = mutableListOf<StaffInfo>()
         val characters = mutableListOf<CharacterInfo>()
         val jikan = findMostSimilarAnime(Jikax.getSearchAnime(name), name)
-        jikan?.let { jikaxInfo ->
+        jikan?.let { data ->
+            jikaxInfo = data
             staff.addAll(Jikax.getStaff(jikaxInfo.malId))
             characters.addAll(Jikax.getCharacters(jikaxInfo.malId))
-
-            animeInfo.copy(
-                malId = jikaxInfo.malId,
-                title = jikaxInfo.titles?.first { it.type == "Default" }?.title.orEmpty(),
-                poster = monkxInfo.image,
-                cover = monkxInfo.cover,
-                genres = monkxInfo.genres,
-                synopsis = monkxInfo.synopsis,
-                //episodes = monkxInfo.episodes,
-                score = jikaxInfo.score.toString(),
-                episodesCount = monkxInfo.episodesCount
-            )
         }
 
-        return animeInfo
+        return AnimeInfoEntity(
+            malId = jikaxInfo.malId,
+            title = jikaxInfo.titles?.first { it.type == "Default" }?.title.orEmpty(),
+            poster = monkxInfo.image,
+            cover = monkxInfo.cover,
+            genres = monkxInfo.genres,
+            synopsis = monkxInfo.synopsis,
+            episodes = monkxInfo.episodes,
+            staff = staff,
+            characters = characters,
+            score = jikaxInfo.score.toString(),
+            episodesCount = monkxInfo.episodesCount
+        )
     }
 }
