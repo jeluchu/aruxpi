@@ -6,7 +6,7 @@ import com.jeluchu.monkx.core.utils.empty
 import com.jeluchu.monkx.core.utils.zero
 import com.jeluchu.monkx.models.anime.AnimeEpisode
 
-data class AnimeInfoEntity(
+open class AnimeInfoEntity(
     val malId: Int = Int.zero(),
     val title: String = String.empty(),
     val poster: String = String.empty(),
