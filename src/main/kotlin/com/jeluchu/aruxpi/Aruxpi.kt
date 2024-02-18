@@ -1,6 +1,9 @@
 package com.jeluchu.aruxpi
 
 import com.jeluchu.aruxpi.core.extensions.toAnimesInDay
+import com.jeluchu.aruxpi.core.extensions.toCharacter
+import com.jeluchu.aruxpi.core.extensions.toEpisode
+import com.jeluchu.aruxpi.core.extensions.toStaff
 import com.jeluchu.aruxpi.core.utils.findMostSimilarAnime
 import com.jeluchu.aruxpi.models.anime.AnimeInfoEntity
 import com.jeluchu.aruxpi.models.schedule.AnimesInDay
@@ -41,7 +44,6 @@ object Aruxpi {
     suspend fun getDay(day: Day): List<AnimesInDay> =
         Jikax.getSchedule(day).map { it.toAnimesInDay() }
 
-
     /**
      * Function to get all anime returned after a search.
      * @return List of anime that have a similar title to the one in the query
@@ -73,9 +75,9 @@ object Aruxpi {
             cover = monkxInfo.cover,
             genres = monkxInfo.genres,
             synopsis = monkxInfo.synopsis,
-            episodes = monkxInfo.episodes,
-            staff = staff,
-            characters = characters,
+            episodes = monkxInfo.episodes.map { it.toEpisode() },
+            staff = staff.map { it.toStaff() },
+            characters = characters.map { it.toCharacter() },
             score = jikaxInfo.score.toString(),
             episodesCount = monkxInfo.episodesCount
         )
