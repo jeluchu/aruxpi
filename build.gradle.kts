@@ -20,9 +20,6 @@ dependencies {
     implementation(libs.bundles.jeluchu)
     testImplementation(libs.bundles.junit)
     testImplementation(libs.bundles.coroutines)
-
-    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
-    implementation("org.mongodb:bson-kotlinx:4.11.0")
 }
 
 tasks {
