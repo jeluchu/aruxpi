@@ -10,15 +10,15 @@ open class Episode(
     /**
      * Id for episode.
      */
-    val id: String = String.empty(),
+    var id: String = String.empty(),
 
     /**
      * Episode number.
      */
-    val number: Int = Int.zero(),
+    var number: Int = Int.zero(),
 
     /**
      * Date for next episode.
      */
-    val nextEpisodeDate: String = String.empty()
+    var nextEpisodeDate: String = String.empty()
 )
