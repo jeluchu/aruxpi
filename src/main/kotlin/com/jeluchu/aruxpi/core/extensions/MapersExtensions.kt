@@ -18,6 +18,12 @@ fun AnimeEpisode.toEpisode() = Episode(
     nextEpisodeDate = String.empty()
 )
 
+fun com.jeluchu.tioxime.models.anime.AnimeEpisode.toEpisode() = Episode(
+    id = id,
+    number = number,
+    nextEpisodeDate = String.empty()
+)
+
 fun StaffInfo.toStaff() = Staff(
     person = person.toIndividual(),
     positions = positions

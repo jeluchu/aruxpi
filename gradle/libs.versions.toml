@@ -4,7 +4,8 @@ kotlinx-coroutines="1.7.3"
 
 [libraries]
 jeluchu-monkx = "com.github.jeluchu:monkx:1.0.4"
-jeluchu-jikax = "com.github.jeluchu:jikax:0.2.2"
+jeluchu-jikax = "com.github.jeluchu:jikax:0.2.4"
+jeluchu-tioxime = "com.github.jeluchu:tioxime:1.0.0"
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jupiter-junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jupiter-junit" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -12,7 +13,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 [bundles]
 jeluchu = [
     "jeluchu-monkx",
-    "jeluchu-jikax"
+    "jeluchu-jikax",
+    "jeluchu-tioxime",
 ]
 
 coroutines = [
