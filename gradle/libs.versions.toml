@@ -3,7 +3,7 @@ jupiter-junit="5.3.1"
 kotlinx-coroutines="1.7.3"
 
 [libraries]
-jeluchu-monkx = "com.github.jeluchu:monkx:1.0.4"
+jeluchu-monkx = "com.github.jeluchu:monkx:1.0.6"
 jeluchu-jikax = "com.github.jeluchu:jikax:0.2.4"
 jeluchu-tioxime = "com.github.jeluchu:tioxime:1.0.0"
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jupiter-junit" }

@@ -1,4 +1,4 @@
-package com.jeluchu.monkx
+package com.jeluchu.aruxpi
 
 import com.jeluchu.aruxpi.Aruxpi
 import com.jeluchu.jikax.models.schedule.Day
