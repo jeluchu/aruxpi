@@ -1,14 +1,13 @@
 package com.jeluchu.aruxpi.core.extensions
 
-import com.jeluchu.aruxpi.models.schedule.AnimesInDay
-import com.jeluchu.jikax.models.anime.AnimeData
-
 fun Int.Companion.zero() = 0
 fun String.Companion.empty() = ""
+fun Int?.orZero(): Int = this ?: 0
+fun Float?.orZero(): Float = this ?: 0f
 
-fun AnimeData.toAnimesInDay() = AnimesInDay(
-    id = malId,
-    malId = malId,
-    name = titles?.first()?.title.orEmpty(),
-    image = images?.webp?.large.orEmpty()
-)
+fun String.toMinutes(): String {
+    val regex = """(\d+) min""".toRegex()
+
+    val matchResult = regex.find(this)
+    return matchResult?.groupValues?.get(1).orEmpty()
+}

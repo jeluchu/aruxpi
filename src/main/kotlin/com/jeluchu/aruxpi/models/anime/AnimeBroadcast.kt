@@ -1,7 +1,6 @@
 package com.jeluchu.aruxpi.models.anime
 
-import com.jeluchu.jikax.core.utils.empty
-import com.jeluchu.jikax.models.anime.Trailer
+import com.jeluchu.aruxpi.core.extensions.empty
 
 class AnimeBroadcast(
     /**
@@ -18,4 +17,15 @@ class AnimeBroadcast(
      * Timezone in broadcast.
      */
     val timezone: String = String.empty()
-)
+) {
+    companion object {
+        fun AnimeBroadcast?.orEmpty() = this ?: empty()
+
+        fun empty() =
+            AnimeBroadcast(
+                String.empty(),
+                String.empty(),
+                String.empty()
+            )
+    }
+}

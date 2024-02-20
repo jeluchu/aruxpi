@@ -1,6 +1,6 @@
 package com.jeluchu.aruxpi.models.anime
 
-import com.jeluchu.jikax.core.utils.empty
+import com.jeluchu.aruxpi.core.extensions.empty
 
 open class AiringTime(
     /**
@@ -12,4 +12,14 @@ open class AiringTime(
      * End date airing.
      */
     val to: String = String.empty()
-)
+) {
+    companion object {
+        fun AiringTime?.orEmpty() = this ?: empty()
+
+        fun empty() =
+            AiringTime(
+                String.empty(),
+                String.empty()
+            )
+    }
+}

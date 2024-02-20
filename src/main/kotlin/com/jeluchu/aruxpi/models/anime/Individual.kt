@@ -23,4 +23,16 @@ open class Individual(
      * Request hast next page or not.
      */
     val images: String = String.empty()
-)
+) {
+    companion object {
+        fun Individual?.orEmpty() = this ?: empty()
+
+        fun empty() =
+            Individual(
+                Int.zero(),
+                String.empty(),
+                String.empty(),
+                String.empty()
+            )
+    }
+}

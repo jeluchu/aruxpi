@@ -8,4 +8,16 @@ data class AnimesInDay(
     val malId: Int = Int.zero(),
     val name: String = String.empty(),
     val image: String = String.empty(),
-)
+) {
+    fun AnimesInDay?.orEmpty() = this ?: empty()
+
+    companion object {
+        fun empty() =
+            AnimesInDay(
+                Int.zero(),
+                Int.zero(),
+                String.empty(),
+                String.empty()
+            )
+    }
+}

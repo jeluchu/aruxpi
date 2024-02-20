@@ -1,4 +1,4 @@
-package com.jeluchu.aruxpi.extractor
+package com.jeluchu.aruxpi.extractor.data
 
 import com.jeluchu.aruxpi.core.utils.RatcliffObershelp
 import com.jeluchu.aruxpi.models.jikax.AnimeFullData
@@ -19,13 +19,20 @@ suspend fun String.getJikaxInfo(): AnimeFullData? {
     return jikaxInfo
 }
 
+suspend fun Int.getJikaxInfo() = AnimeFullData(
+    anime = Jikax.getAnime(this),
+    staff = Jikax.getStaff(this),
+    characters = Jikax.getCharacters(this)
+)
+
 fun findMostSimilarAnime(animeList: List<AnimeData>, query: String): AnimeData? {
     var maxSimilarity = 0.9
     val ro = RatcliffObershelp()
     var mostSimilarAnime: AnimeData? = null
 
     for (anime in animeList) {
-        val similarity = ro.similarity(query, anime.titles?.first { it.type == "Default" }?.title.orEmpty())
+        val similarity =
+            ro.similarity(query, anime.titles?.first { it.type == "Default" }?.title.orEmpty())
         if (similarity > maxSimilarity) {
             maxSimilarity = similarity
             mostSimilarAnime = anime

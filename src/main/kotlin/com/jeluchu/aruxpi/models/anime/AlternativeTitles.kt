@@ -1,7 +1,6 @@
 package com.jeluchu.aruxpi.models.anime
 
-import com.jeluchu.jikax.core.utils.empty
-import com.jeluchu.jikax.models.anime.Trailer
+import com.jeluchu.aruxpi.core.extensions.empty
 
 /**
  * AlternativeTitles data class.

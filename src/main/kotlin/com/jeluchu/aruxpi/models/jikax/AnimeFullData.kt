@@ -9,15 +9,15 @@ data class AnimeFullData(
      * General info of anime.
      * @see AnimeData
      */
-    val anime: AnimeData = AnimeData(),
+    val anime: AnimeData?,
 
     /**
      * Staff list of anime..
      */
-    val staff: List<StaffInfo> = emptyList(),
+    val staff: List<StaffInfo>?,
 
     /**
      * Characters list of anime.
      */
-    val characters: List<CharacterInfo> = emptyList()
+    val characters: List<CharacterInfo>?
 )

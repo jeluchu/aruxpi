@@ -1,8 +1,5 @@
 package com.jeluchu.aruxpi.models.anime
 
-import com.jeluchu.jikax.core.utils.empty
-import com.jeluchu.jikax.models.anime.Trailer
-
 open class Themes(
     /**
      * List of endings.
@@ -13,4 +10,14 @@ open class Themes(
      * List of openings.
      */
     val openings: List<String> = emptyList()
-)
+) {
+    companion object {
+        fun Themes?.orEmpty() = this ?: empty()
+
+        fun empty() =
+            Themes(
+                emptyList(),
+                emptyList()
+            )
+    }
+}

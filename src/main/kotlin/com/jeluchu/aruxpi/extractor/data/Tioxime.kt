@@ -1,4 +1,4 @@
-package com.jeluchu.aruxpi.extractor
+package com.jeluchu.aruxpi.extractor.data
 
 import com.jeluchu.aruxpi.core.utils.RatcliffObershelp
 import com.jeluchu.tioxime.Tioxime

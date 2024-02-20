@@ -1,7 +1,7 @@
 package com.jeluchu.aruxpi.models.anime
 
-import com.jeluchu.aruxpi.core.utils.empty
-import com.jeluchu.aruxpi.core.utils.zero
+import com.jeluchu.aruxpi.core.extensions.empty
+import com.jeluchu.aruxpi.core.extensions.zero
 
 data class AnimeInfoEntity(
     var malId: Int = Int.zero(),
@@ -18,7 +18,7 @@ data class AnimeInfoEntity(
     var status: String = String.empty(),
     var type: AnimeTypes = AnimeTypes.All,
     val url: String = String.empty(),
-    val promo: VideoPromo = VideoPromo(),
+    val promo: VideoPromo = VideoPromo.empty(),
     val source: String = String.empty(),
     val duration: String = String.empty(),
     val rank: Int = Int.zero(),
@@ -34,5 +34,6 @@ data class AnimeInfoEntity(
     val licensors: List<Companies> = emptyList(),
     val producers: List<Companies> = emptyList(),
     val theme: Themes = Themes(),
-    val relations: List<Related> = emptyList()
+    val relations: List<Related> = emptyList(),
+    val hasError: Boolean = false
 )

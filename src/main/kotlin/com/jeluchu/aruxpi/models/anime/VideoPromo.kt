@@ -1,9 +1,13 @@
 package com.jeluchu.aruxpi.models.anime
 
-import com.jeluchu.jikax.core.utils.empty
-import com.jeluchu.jikax.models.anime.Trailer
+import com.jeluchu.aruxpi.core.extensions.empty
 
 open class VideoPromo(
+    /**
+     * Embed url for trailer.
+     */
+    val embedUrl: String = String.empty(),
+
     /**
      * Url for trailer.
      */
@@ -12,5 +16,22 @@ open class VideoPromo(
     /**
      * Youtube id for trailer.
      */
-    val youtubeId: String = String.empty()
-)
+    val youtubeId: String = String.empty(),
+
+    /**
+     * Images for trailer.
+     */
+    val images: Images = Images()
+) {
+    companion object {
+        fun VideoPromo?.orEmpty() = this ?: empty()
+
+        fun empty() =
+            VideoPromo(
+                String.empty(),
+                String.empty(),
+                String.empty(),
+                Images.empty()
+            )
+    }
+}

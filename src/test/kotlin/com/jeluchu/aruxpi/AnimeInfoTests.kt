@@ -1,7 +1,6 @@
 package com.jeluchu.aruxpi
 
 import com.jeluchu.aruxpi.Aruxpi
-import com.jeluchu.jikax.models.schedule.Day
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -12,6 +11,22 @@ class AnimeInfoTests {
     @Test
     fun `on getAnime to return all information of anime`() {
         val result = runBlocking { Aruxpi.getAnime("Steins;Gate") }
+        assertTrue(result.malId != 0)
+        assertTrue(result.title.isNotEmpty())
+        runBlocking { delay(3000) }
+    }
+
+    @Test
+    fun `on getAnime with malId and name to return all information of anime`() {
+        val result = runBlocking { Aruxpi.getAnime(10798, "Un-Go") }
+        assertTrue(result.malId != 0)
+        assertTrue(result.title.isNotEmpty())
+        runBlocking { delay(3000) }
+    }
+
+    @Test
+    fun `on getAnime with malId and name to return information of anime for Jikan`() {
+        val result = runBlocking { Aruxpi.getAnime(54871, "Shin Nippon History") }
         assertTrue(result.malId != 0)
         assertTrue(result.title.isNotEmpty())
         runBlocking { delay(3000) }

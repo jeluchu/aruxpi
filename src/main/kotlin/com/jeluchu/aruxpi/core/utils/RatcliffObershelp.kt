@@ -33,11 +33,11 @@ class RatcliffObershelp : StringSimilarity, StringDistance {
             return 1.0
         }
         val matches = getMatchList(s1, s2)
-        var sum_of_matches = 0
+        var sumOfMatches = 0
         for (match in matches) {
-            sum_of_matches += match.length
+            sumOfMatches += match.length
         }
-        return 2.0 * sum_of_matches / (s1.length + s2.length)
+        return 2.0 * sumOfMatches / (s1.length + s2.length)
     }
 
     /**
@@ -56,7 +56,7 @@ class RatcliffObershelp : StringSimilarity, StringDistance {
         private fun getMatchList(s1: String, s2: String): List<String> {
             val list: MutableList<String> = ArrayList()
             val match = frontMaxMatch(s1, s2)
-            if (match.length > 0) {
+            if (match.isNotEmpty()) {
                 val frontsource = s1.substring(0, s1.indexOf(match))
                 val fronttarget = s2.substring(0, s2.indexOf(match))
                 val frontqueue = getMatchList(frontsource, fronttarget)
@@ -73,7 +73,7 @@ class RatcliffObershelp : StringSimilarity, StringDistance {
         private fun frontMaxMatch(s1: String, s2: String): String {
             var longest = 0
             var longestsubstring = ""
-            for (i in 0 until s1.length) {
+            for (i in s1.indices) {
                 for (j in i + 1..s1.length) {
                     val substring = s1.substring(i, j)
                     if (s2.contains(substring) && substring.length > longest) {

@@ -1,7 +1,7 @@
 package com.jeluchu.aruxpi.models.anime
 
+import com.jeluchu.aruxpi.core.extensions.empty
 import com.jeluchu.aruxpi.core.extensions.zero
-import com.jeluchu.aruxpi.core.utils.empty
 
 /**
  * Episode data class.
