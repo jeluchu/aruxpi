@@ -1,6 +1,7 @@
 package com.jeluchu.aruxpi
 
 import com.jeluchu.aruxpi.Aruxpi
+import com.jeluchu.aruxpi.models.schedule.Days
 import com.jeluchu.jikax.models.schedule.Day
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -24,7 +25,7 @@ class ScheduleTests {
 
     @Test
     fun `on getDay to return all animes in the day`() {
-        val result = runBlocking { Aruxpi.getDay(Day.SATURDAY) }
+        val result = runBlocking { Aruxpi.getDay(Days.SATURDAY) }
         assertTrue(result.isNotEmpty())
         runBlocking { delay(3000) }
     }

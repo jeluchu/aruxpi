@@ -25,6 +25,7 @@ import com.jeluchu.aruxpi.models.anime.AnimeInfoEntity
 import com.jeluchu.aruxpi.models.anime.Themes.Companion.orEmpty
 import com.jeluchu.aruxpi.models.anime.VideoPromo.Companion.orEmpty
 import com.jeluchu.aruxpi.models.schedule.AnimesInDay
+import com.jeluchu.aruxpi.models.schedule.Days
 import com.jeluchu.aruxpi.models.schedule.Week
 import com.jeluchu.jikax.Jikax
 import com.jeluchu.jikax.models.schedule.Day
@@ -55,8 +56,8 @@ object Aruxpi {
      * @return List of anime that have a similar title to the one in the query
      * @see AnimesInDay
      */
-    suspend fun getDay(day: Day): List<AnimesInDay> =
-        Jikax.getSchedule(day).map { it.toAnimesInDay() }
+    suspend fun getDay(day: Days): List<AnimesInDay> =
+        Jikax.getSchedule(Day.valueOf(day.name)).map { it.toAnimesInDay() }
 
     /**
      * Function to get all anime returned after a search.
