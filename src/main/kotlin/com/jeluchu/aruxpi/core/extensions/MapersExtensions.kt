@@ -18,7 +18,9 @@ import com.jeluchu.aruxpi.models.anime.Seasons
 import com.jeluchu.aruxpi.models.anime.Staff
 import com.jeluchu.aruxpi.models.anime.Themes
 import com.jeluchu.aruxpi.models.anime.VideoPromo
+import com.jeluchu.aruxpi.models.anime.VideoPromo.Companion.orEmpty
 import com.jeluchu.aruxpi.models.schedule.AnimesInDay
+import com.jeluchu.aruxpi.models.top.Top
 import com.jeluchu.jikax.core.models.common.ImageFormat
 import com.jeluchu.jikax.core.models.enums.AnimeType
 import com.jeluchu.jikax.core.models.enums.Season
@@ -40,6 +42,7 @@ import com.jeluchu.jikax.models.character.VoiceActor
 import com.jeluchu.jikax.models.staff.Person
 import com.jeluchu.jikax.models.staff.StaffInfo
 import com.jeluchu.monkx.models.anime.AnimeEpisode
+import java.util.Calendar
 
 fun AnimeData.toAnimesInDay() = AnimesInDay(
     id = malId,
@@ -179,4 +182,25 @@ fun Aired.toAiringTime() = AiringTime(
 fun Title.toAiringTime() = AlternativeTitles(
     title = title.orEmpty(),
     type = type.orEmpty()
+)
+
+fun AnimeData.toTopTime(
+    rank: Int,
+    type: String,
+    subtype: String,
+    page: Int
+) = Top(
+    rank = rank,
+    score = score.orZero().toString(),
+    malId = malId,
+    title = titles?.first { it.type == "Default" }?.title.orEmpty(),
+    image = images?.webp?.large.orEmpty(),
+    url = url.orEmpty(),
+    promo = trailer?.toVideoPromo().orEmpty(),
+    season = season.toSeasons(),
+    year = year ?: Calendar.getInstance().weekYear,
+    airing = airing ?: false,
+    type = type,
+    subtype = subtype,
+    page = page,
 )
