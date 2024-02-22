@@ -16,7 +16,7 @@ class EpisodesTests {
     }
 
     @Test
-    fun `on getTop pass an anime type, filter and rating return 25 anime top`() {
+    fun `on getServers pass an anime type, filter and rating return 25 anime top`() {
         val id = "metallic-rouge-episodio-7"
         val result = runBlocking { Aruxpi.getServers(id, Sources.Monkx) }
         assertTrue(result.isNotEmpty())
