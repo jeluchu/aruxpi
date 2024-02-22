@@ -1,5 +1,6 @@
 package com.jeluchu.aruxpi.extractor.data
 
+import com.jeluchu.aruxpi.core.enums.Sources
 import com.jeluchu.aruxpi.core.extensions.orZero
 import com.jeluchu.aruxpi.core.extensions.toAiringTime
 import com.jeluchu.aruxpi.core.extensions.toAnimeBroadcast
@@ -66,6 +67,7 @@ suspend fun toAnimeInfoData(
                     synopsis = monkx.synopsis,
                     episodes = monkx.episodes.map { it.toEpisode() },
                     episodesCount = monkx.episodesCount,
+                    episodeSource = Sources.Monkx
                 )
             }
 
@@ -77,6 +79,7 @@ suspend fun toAnimeInfoData(
                     synopsis = tioxime.synopsis,
                     episodes = tioxime.episodes.map { it.toEpisode() },
                     episodesCount = tioxime.episodesCount,
+                    episodeSource = Sources.Tioxime
                 )
             }
 

@@ -1,5 +1,7 @@
 package com.jeluchu.aruxpi.core.extensions
 
+import com.jeluchu.aruxpi.core.enums.Ratings
+import com.jeluchu.aruxpi.core.enums.TopStates
 import com.jeluchu.aruxpi.models.anime.Actor
 import com.jeluchu.aruxpi.models.anime.AiringTime
 import com.jeluchu.aruxpi.models.anime.AlternativeTitles
@@ -19,11 +21,17 @@ import com.jeluchu.aruxpi.models.anime.Staff
 import com.jeluchu.aruxpi.models.anime.Themes
 import com.jeluchu.aruxpi.models.anime.VideoPromo
 import com.jeluchu.aruxpi.models.anime.VideoPromo.Companion.orEmpty
+import com.jeluchu.aruxpi.models.episodes.EpisodeServer
 import com.jeluchu.aruxpi.models.schedule.AnimesInDay
+import com.jeluchu.aruxpi.models.search.AnimeSearch
+import com.jeluchu.aruxpi.models.seasons.AnimeSeason
+import com.jeluchu.aruxpi.models.seasons.SeasonYear
 import com.jeluchu.aruxpi.models.top.Top
 import com.jeluchu.jikax.core.models.common.ImageFormat
 import com.jeluchu.jikax.core.models.enums.AnimeType
+import com.jeluchu.jikax.core.models.enums.Rating
 import com.jeluchu.jikax.core.models.enums.Season
+import com.jeluchu.jikax.core.models.enums.TopFilter
 import com.jeluchu.jikax.models.anime.Aired
 import com.jeluchu.jikax.models.anime.AnimeData
 import com.jeluchu.jikax.models.anime.Broadcast
@@ -39,6 +47,7 @@ import com.jeluchu.jikax.models.anime.Title
 import com.jeluchu.jikax.models.anime.Trailer
 import com.jeluchu.jikax.models.character.CharacterInfo
 import com.jeluchu.jikax.models.character.VoiceActor
+import com.jeluchu.jikax.models.seasons.SeasonInfo
 import com.jeluchu.jikax.models.staff.Person
 import com.jeluchu.jikax.models.staff.StaffInfo
 import com.jeluchu.monkx.models.anime.AnimeEpisode
@@ -49,6 +58,20 @@ fun AnimeData.toAnimesInDay() = AnimesInDay(
     malId = malId,
     name = titles?.first()?.title.orEmpty(),
     image = images?.webp?.large.orEmpty()
+)
+
+fun AnimeData.toAnimeSeason() = AnimeSeason(
+    malId = malId,
+    title = titles?.first { it.type == "Default" }?.title.orEmpty(),
+    image = images?.webp?.large.orEmpty(),
+    url = url.orEmpty()
+)
+
+fun AnimeData.toAnimeSearch() = AnimeSearch(
+    malId = malId,
+    title = titles?.first { it.type == "Default" }?.title.orEmpty(),
+    image = images?.webp?.large.orEmpty(),
+    url = url.orEmpty()
 )
 
 fun AnimeEpisode.toEpisode() = Episode(
@@ -118,6 +141,24 @@ fun AnimeType?.toType() = when(this) {
     AnimeType.ONA -> AnimeTypes.ONA
     AnimeType.Music -> AnimeTypes.Music
     else  -> AnimeTypes.All
+}
+
+fun Ratings?.toRating() = when(this) {
+    Ratings.g -> Rating.g
+    Ratings.pg -> Rating.pg
+    Ratings.pg13 -> Rating.pg13
+    Ratings.r17 -> Rating.r17
+    Ratings.r -> Rating.r
+    Ratings.rx -> Rating.rx
+    else -> null
+}
+
+fun TopStates?.toTopFilter() = when(this) {
+    TopStates.airing -> TopFilter.airing
+    TopStates.upcoming  -> TopFilter.upcoming
+    TopStates.bypopularity -> TopFilter.bypopularity
+    TopStates.favorite -> TopFilter.favorite
+    else -> null
 }
 
 fun External.toExternalLinks() = ExternalLinks(
@@ -203,4 +244,19 @@ fun AnimeData.toTopTime(
     type = type,
     subtype = subtype,
     page = page,
+)
+
+fun SeasonInfo.toAiringTime() = SeasonYear(
+    year = year ?: Calendar.getInstance().weekYear,
+    seasons = seasons.orEmpty()
+)
+
+fun com.jeluchu.monkx.models.servers.Server.toEpisodeServer() = EpisodeServer(
+    id = id,
+    url = url
+)
+
+fun com.jeluchu.tioxime.models.servers.Server.toEpisodeServer() = EpisodeServer(
+    id = id,
+    url = url
 )

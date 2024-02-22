@@ -1,5 +1,7 @@
 package com.jeluchu.aruxpi
 
+import com.jeluchu.aruxpi.core.enums.Ratings
+import com.jeluchu.aruxpi.core.enums.TopStates
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -9,7 +11,7 @@ import org.junit.jupiter.api.Test
 class TopTests {
     @Test
     fun `on getTop pass an anime type and filter return 25 anime top`() {
-        val filter = "airing"
+        val filter = TopStates.airing
         val result = runBlocking { Aruxpi.getAnimeTop(filter) }
         assertEquals(25, result.size)
         runBlocking { delay(3000) }
@@ -17,8 +19,8 @@ class TopTests {
 
     @Test
     fun `on getTop pass an anime type, filter and rating return 25 anime top`() {
-        val filter = "airing"
-        val rating = "pg13"
+        val filter = TopStates.airing
+        val rating = Ratings.pg13
         val result = runBlocking { Aruxpi.getAnimeTop(filter, rating) }
         assertEquals(25, result.size)
         runBlocking { delay(3000) }

@@ -1,8 +1,6 @@
 package com.jeluchu.aruxpi
 
-import com.jeluchu.aruxpi.Aruxpi
 import com.jeluchu.aruxpi.models.schedule.Days
-import com.jeluchu.jikax.models.schedule.Day
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertTrue

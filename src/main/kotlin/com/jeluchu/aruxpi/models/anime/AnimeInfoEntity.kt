@@ -1,5 +1,6 @@
 package com.jeluchu.aruxpi.models.anime
 
+import com.jeluchu.aruxpi.core.enums.Sources
 import com.jeluchu.aruxpi.core.extensions.empty
 import com.jeluchu.aruxpi.core.extensions.zero
 
@@ -35,5 +36,6 @@ data class AnimeInfoEntity(
     val producers: List<Companies> = emptyList(),
     val theme: Themes = Themes(),
     val relations: List<Related> = emptyList(),
+    val episodeSource: Sources = Sources.None,
     val hasError: Boolean = false
 )
