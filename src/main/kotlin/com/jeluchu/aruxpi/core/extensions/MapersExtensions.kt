@@ -64,7 +64,21 @@ fun AnimeData.toAnimeSeason() = AnimeSeason(
     malId = malId,
     title = titles?.first { it.type == "Default" }?.title.orEmpty(),
     image = images?.webp?.large.orEmpty(),
-    url = url.orEmpty()
+    url = url.orEmpty(),
+    season = season?.name.orEmpty(),
+    year = year ?: Calendar.getInstance().weekYear
+)
+
+fun AnimeData.toAnimeSeason(
+    year: Int,
+    season: String
+) = AnimeSeason(
+    malId = malId,
+    title = titles?.first { it.type == "Default" }?.title.orEmpty(),
+    image = images?.webp?.large.orEmpty(),
+    url = url.orEmpty(),
+    season = season,
+    year = year
 )
 
 fun AnimeData.toAnimeSearch() = AnimeSearch(

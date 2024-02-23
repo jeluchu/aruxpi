@@ -168,9 +168,9 @@ object Aruxpi {
      * @param season [String] Name of the season.
      * @return Anime with all animes info.
      */
-    suspend fun getSeason(year: Int, season: String): List<AnimeSearch> {
+    suspend fun getSeason(year: Int, season: String): List<AnimeSeason> {
         val response = Jikax.getSeason(year, season)
-        val animes = response.data.map { it.toAnimeSearch() }
+        val animes = response.data.map { it.toAnimeSeason(year, season) }
 
         return animes.toMutableList().apply {
             for (page in 2..(response.pagination.lastPage ?: 2)) {
@@ -179,7 +179,7 @@ object Aruxpi {
                         year = year,
                         season = season,
                         page = page
-                    ).data.map { it.toAnimeSearch() }
+                    ).data.map { it.toAnimeSeason(year, season) }
                 )
             }
         }
