@@ -54,14 +54,14 @@ import com.jeluchu.monkx.models.anime.AnimeEpisode
 import java.util.Calendar
 
 fun AnimeData.toAnimesInDay() = AnimesInDay(
-    id = malId,
-    malId = malId,
+    id = malId.orZero(),
+    malId = malId.orZero(),
     name = titles?.first()?.title.orEmpty(),
     image = images?.webp?.large.orEmpty()
 )
 
 fun AnimeData.toAnimeSeason() = AnimeSeason(
-    malId = malId,
+    malId = malId.orZero(),
     title = titles?.first { it.type == "Default" }?.title.orEmpty(),
     image = images?.webp?.large.orEmpty(),
     url = url.orEmpty(),
@@ -73,7 +73,7 @@ fun AnimeData.toAnimeSeason(
     year: Int,
     season: String
 ) = AnimeSeason(
-    malId = malId,
+    malId = malId.orZero(),
     title = titles?.first { it.type == "Default" }?.title.orEmpty(),
     image = images?.webp?.large.orEmpty(),
     url = url.orEmpty(),
@@ -82,7 +82,7 @@ fun AnimeData.toAnimeSeason(
 )
 
 fun AnimeData.toAnimeSearch() = AnimeSearch(
-    malId = malId,
+    malId = malId.orZero(),
     title = titles?.first { it.type == "Default" }?.title.orEmpty(),
     image = images?.webp?.large.orEmpty(),
     url = url.orEmpty()
@@ -247,7 +247,7 @@ fun AnimeData.toTopTime(
 ) = Top(
     rank = rank,
     score = score.orZero().toString(),
-    malId = malId,
+    malId = malId.orZero(),
     title = titles?.first { it.type == "Default" }?.title.orEmpty(),
     image = images?.webp?.large.orEmpty(),
     url = url.orEmpty(),

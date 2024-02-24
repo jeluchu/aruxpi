@@ -23,8 +23,8 @@ class SeasonTests {
 
     @Test
     fun `on getSeason pass param for year and season return list of all animes in season`() {
-        val year = 2023
-        val season = "winter"
+        val year = 2013
+        val season = "fall"
         val result = runBlocking { Aruxpi.getSeason(year, season) }
         assertTrue(result.isNotEmpty())
         runBlocking { delay(3000) }

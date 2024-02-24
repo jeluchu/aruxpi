@@ -3,6 +3,7 @@ package com.jeluchu.aruxpi
 import com.jeluchu.aruxpi.core.enums.Ratings
 import com.jeluchu.aruxpi.core.enums.Sources
 import com.jeluchu.aruxpi.core.enums.TopStates
+import com.jeluchu.aruxpi.core.extensions.orZero
 import com.jeluchu.aruxpi.core.extensions.toAiringTime
 import com.jeluchu.aruxpi.core.extensions.toAnimeSearch
 import com.jeluchu.aruxpi.core.extensions.toAnimeSeason
@@ -79,7 +80,7 @@ object Aruxpi {
     suspend fun getRandomAnime(): AnimeInfoEntity {
         val random = Jikax.getRandomAnime()
         return getAnime(
-            malId = random.malId,
+            malId = random.malId.orZero(),
             name = random.titles?.first { it.type == "Default" }?.title.orEmpty()
         )
     }
