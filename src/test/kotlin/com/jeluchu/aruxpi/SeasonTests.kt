@@ -30,6 +30,17 @@ class SeasonTests {
         runBlocking { delay(3000) }
     }
 
+    @Test
+    fun `on getAllSeasons pass param for year return list of all animes in all seasons`() {
+        val year = 2013
+        val result = runBlocking { Aruxpi.getAllSeasons(year) }
+        assertTrue(result.winter.isNotEmpty())
+        assertTrue(result.spring.isNotEmpty())
+        assertTrue(result.summer.isNotEmpty())
+        assertTrue(result.fall.isNotEmpty())
+        runBlocking { delay(3000) }
+    }
+
     companion object {
         @BeforeAll
         @JvmStatic

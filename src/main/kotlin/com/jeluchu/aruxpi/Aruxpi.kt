@@ -1,6 +1,7 @@
 package com.jeluchu.aruxpi
 
 import com.jeluchu.aruxpi.core.enums.Ratings
+import com.jeluchu.aruxpi.core.enums.Seasons
 import com.jeluchu.aruxpi.core.enums.Sources
 import com.jeluchu.aruxpi.core.enums.TopStates
 import com.jeluchu.aruxpi.core.extensions.orZero
@@ -21,6 +22,7 @@ import com.jeluchu.aruxpi.models.schedule.AnimesInDay
 import com.jeluchu.aruxpi.models.schedule.Days
 import com.jeluchu.aruxpi.models.schedule.Week
 import com.jeluchu.aruxpi.models.search.AnimeSearch
+import com.jeluchu.aruxpi.models.seasons.AllSeasonsYear
 import com.jeluchu.aruxpi.models.seasons.AnimeSeason
 import com.jeluchu.aruxpi.models.seasons.SeasonYear
 import com.jeluchu.jikax.Jikax
@@ -187,6 +189,18 @@ object Aruxpi {
     }
 
     /**
+     * Function to get all animes seasons in year
+     * @param year [Int] Year of the season.
+     * @return All animes in all seasons by year.
+     */
+    suspend fun getAllSeasons(year: Int) = AllSeasonsYear(
+        winter = getSeason(year, Seasons.winter.name),
+        spring = getSeason(year, Seasons.spring.name),
+        summer = getSeason(year, Seasons.summer.name),
+        fall = getSeason(year, Seasons.fall.name),
+    )
+
+    /**
      * Function to get last episodes from MonosChinos
      * @return List of lasted animes.
      */
@@ -197,7 +211,7 @@ object Aruxpi {
      * Function to get servers by episode from MonosChinos
      * @return List of servers.
      */
-    suspend fun getServers(id: String, sources: Sources) = when(sources) {
+    suspend fun getServers(id: String, sources: Sources) = when (sources) {
         Sources.Monkx -> Monkx.getServers(id).map { it.toEpisodeServer() }
         Sources.Tioxime -> Tioxime.getServers(id).map { it.toEpisodeServer() }
         else -> emptyList()

@@ -14,5 +14,5 @@ data class SeasonInfo(
     /**
      * Data list of all anime found.
      */
-    val data: List<SeasonYear >
+    val data: List<SeasonYear>
 )
