@@ -5,6 +5,7 @@ import com.jeluchu.aruxpi.core.enums.TopStates
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
@@ -14,6 +15,14 @@ class TopTests {
         val filter = TopStates.airing
         val result = runBlocking { Aruxpi.getAnimeTop(filter) }
         assertEquals(25, result.size)
+        runBlocking { delay(3000) }
+    }
+
+    @Test
+    fun `on getAllAnimeTop params and return all animes in top`() {
+        val filter = TopStates.airing
+        val result = runBlocking { Aruxpi.getAllAnimeTop(filter) }
+        assertTrue(result.isNotEmpty())
         runBlocking { delay(3000) }
     }
 

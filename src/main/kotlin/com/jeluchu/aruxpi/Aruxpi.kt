@@ -25,6 +25,7 @@ import com.jeluchu.aruxpi.models.search.AnimeSearch
 import com.jeluchu.aruxpi.models.seasons.AllSeasonsYear
 import com.jeluchu.aruxpi.models.seasons.AnimeSeason
 import com.jeluchu.aruxpi.models.seasons.SeasonYear
+import com.jeluchu.aruxpi.models.top.Top
 import com.jeluchu.jikax.Jikax
 import com.jeluchu.jikax.models.schedule.Day
 import com.jeluchu.monkx.Monkx
@@ -110,6 +111,58 @@ object Aruxpi {
             subtype = top?.name ?: TopStates.airing.name,
             page = page
         )
+    }
+
+    /**
+     * Function to get search animes by name
+     * @param name [String] Name of the anime.
+     * @return Anime with all animes info.
+     */
+    suspend fun getAllAnimeTop(
+        top: TopStates? = null,
+        rating: Ratings? = null,
+        isCensored: Boolean? = null,
+        limit: Int? = null
+    ): List<Top> {
+        val response = Jikax.getAnimeTop(
+            filter = top.toTopFilter(),
+            rating = rating?.toRating(),
+            sfw = isCensored,
+            limit = limit,
+        )
+
+        var index = 0
+        val animes = response.data.map{ anime ->
+            index++
+            anime.toTopTime(
+                rank = index,
+                type = "anime",
+                subtype = top?.name ?: TopStates.airing.name,
+                page = response.pagination.currentPage.orZero()
+            )
+        }
+
+        return animes.toMutableList().apply {
+            for (page in 2..(response.pagination.lastPage ?: 2)) {
+                addAll(
+                    Jikax.getAnimeTop(
+                        filter = top.toTopFilter(),
+                        rating = rating?.toRating(),
+                        sfw = isCensored,
+                        limit = limit,
+                        page = page
+                    ).data.map { anime ->
+                        index++
+                        anime.toTopTime(
+                            rank = index,
+                            type = "anime",
+                            subtype = top?.name ?: TopStates.airing.name,
+                            page = response.pagination.currentPage.orZero()
+                        )
+                    }
+                )
+            }
+        }
     }
 
     /**
