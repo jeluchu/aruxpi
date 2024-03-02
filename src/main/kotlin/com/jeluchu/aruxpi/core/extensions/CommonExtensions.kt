@@ -11,3 +11,10 @@ fun String.toMinutes(): String {
     val matchResult = regex.find(this)
     return matchResult?.groupValues?.get(1).orEmpty()
 }
+
+fun getMalId(urlBase: String, urls: List<String>): Int? {
+    for (url in urls) {
+        if (url.startsWith(urlBase)) return url.filter { it.isDigit() }.toInt()
+    }
+    return null
+}

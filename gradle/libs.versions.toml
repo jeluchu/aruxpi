@@ -1,4 +1,6 @@
 [versions]
+ktor="2.3.8"
+gson="2.10.1"
 jupiter-junit="5.3.1"
 kotlinx-coroutines="1.7.3"
 
@@ -6,6 +8,9 @@ kotlinx-coroutines="1.7.3"
 jeluchu-monkx = "com.github.jeluchu:monkx:1.0.8"
 jeluchu-jikax = "com.github.jeluchu:jikax:0.6.1"
 jeluchu-tioxime = "com.github.jeluchu:tioxime:1.0.0"
+google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jupiter-junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jupiter-junit" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -17,6 +22,10 @@ jeluchu = [
     "jeluchu-tioxime",
 ]
 
+gson = [
+    "google-gson"
+]
+
 coroutines = [
     "kotlinx-coroutines-core"
 ]
@@ -24,4 +33,9 @@ coroutines = [
 junit = [
     "junit-api",
     "junit-engine"
+]
+
+ktor = [
+    "ktor-client-core",
+    "ktor-client-okhttp",
 ]

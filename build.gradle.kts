@@ -2,6 +2,7 @@ plugins {
     id("maven-publish")
     kotlin("jvm") version "1.9.22"
     id("org.jetbrains.dokka") version "0.10.1"
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 repositories {
@@ -14,9 +15,11 @@ repositories {
 }
 
 group = "com.jeluchu.aruxpi"
-version = "1.0.0-alpha19"
+version = "1.0.0-beta01"
 
 dependencies {
+    implementation(libs.bundles.gson)
+    implementation(libs.bundles.ktor)
     implementation(libs.bundles.jeluchu)
     testImplementation(libs.bundles.junit)
     testImplementation(libs.bundles.coroutines)
@@ -45,7 +48,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.jeluchu"
             artifactId = "aruxpi"
-            version = "1.0.0-alpha19"
+            version = "1.0.0-beta01"
 
             from(components["kotlin"])
         }
