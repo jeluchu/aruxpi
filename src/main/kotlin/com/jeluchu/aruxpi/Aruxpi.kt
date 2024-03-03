@@ -1,6 +1,5 @@
 package com.jeluchu.aruxpi
 
-import com.google.gson.GsonBuilder
 import com.jeluchu.aruxpi.core.connection.DirectoryClient
 import com.jeluchu.aruxpi.core.enums.Ratings
 import com.jeluchu.aruxpi.core.enums.Seasons
@@ -21,7 +20,6 @@ import com.jeluchu.aruxpi.extractor.data.getMonksInfo
 import com.jeluchu.aruxpi.extractor.data.toAnimeInfoData
 import com.jeluchu.aruxpi.models.anime.AnimeInfoEntity
 import com.jeluchu.aruxpi.models.directory.Directory
-import com.jeluchu.aruxpi.models.directory.toAnime
 import com.jeluchu.aruxpi.models.episodes.toEpisodeItem
 import com.jeluchu.aruxpi.models.schedule.AnimesInDay
 import com.jeluchu.aruxpi.models.schedule.Days
@@ -37,8 +35,7 @@ import com.jeluchu.monkx.Monkx
 import com.jeluchu.tioxime.Tioxime
 
 object Aruxpi {
-    var directoryClient = DirectoryClient()
-    private val gson = GsonBuilder().create()
+    private var directoryClient = DirectoryClient()
 
     /**
      * Function to get all anime returned after a search.
@@ -294,15 +291,7 @@ object Aruxpi {
                                 Directory.Anime(
                                     mailId = id,
                                     title = source.title.orEmpty(),
-                                    episodes = source.episodes ?: 0,
-                                    type = source.type.orEmpty(),
-                                    status = source.status.orEmpty(),
-                                    image = source.picture.orEmpty(),
-                                    season = Directory.Season(
-                                        season = source.animeSeason?.season.orEmpty(),
-                                        year = source.animeSeason?.year ?: 0
-                                    ),
-                                    otherLinks = source.sources.orEmpty(),
+                                    image = source.picture.orEmpty()
                                 )
                             )
                         }
