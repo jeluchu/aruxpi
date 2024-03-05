@@ -66,7 +66,7 @@ object Aruxpi {
      * @see AnimeInfoEntity
      */
     suspend fun getAnime(name: String) =
-        toAnimeInfoData(name, name.getJikaxInfo(), name.getMonksInfo())
+        toAnimeInfoData(name, name.getJikaxInfo(), name.getMonksInfo(), getImages(name))
 
     /**
      * Function to get all anime returned after a search.
@@ -74,7 +74,7 @@ object Aruxpi {
      * @see AnimeInfoEntity
      */
     suspend fun getAnime(malId: Int, name: String) =
-        toAnimeInfoData(name, malId.getJikaxInfo(), name.getMonksInfo())
+        toAnimeInfoData(name, malId.getJikaxInfo(), name.getMonksInfo(), getImages(name))
 
     /**
      * Function to get all anime returned after a search.

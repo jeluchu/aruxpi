@@ -3,6 +3,7 @@ package com.jeluchu.aruxpi.models.anime
 import com.jeluchu.aruxpi.core.enums.Sources
 import com.jeluchu.aruxpi.core.extensions.empty
 import com.jeluchu.aruxpi.core.extensions.zero
+import com.jeluchu.aruxpi.models.images.ImagesEntity
 
 data class AnimeInfoEntity(
     var malId: Int = Int.zero(),
@@ -37,5 +38,6 @@ data class AnimeInfoEntity(
     val theme: Themes = Themes(),
     val relations: List<Related> = emptyList(),
     val episodeSource: Sources = Sources.None,
-    val hasError: Boolean = false
+    val hasError: Boolean = false,
+    val gallery: List<ImagesEntity.ImageMediaEntity> = emptyList()
 )

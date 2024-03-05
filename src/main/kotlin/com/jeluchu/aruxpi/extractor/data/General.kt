@@ -20,6 +20,7 @@ import com.jeluchu.aruxpi.models.anime.AnimeBroadcast.Companion.orEmpty
 import com.jeluchu.aruxpi.models.anime.AnimeInfoEntity
 import com.jeluchu.aruxpi.models.anime.Themes.Companion.orEmpty
 import com.jeluchu.aruxpi.models.anime.VideoPromo.Companion.orEmpty
+import com.jeluchu.aruxpi.models.images.ImagesEntity
 import com.jeluchu.aruxpi.models.jikax.AnimeFullData
 import com.jeluchu.monkx.models.anime.AnimeInfo
 import java.util.Calendar
@@ -27,7 +28,8 @@ import java.util.Calendar
 suspend fun toAnimeInfoData(
     name: String,
     jikaxInfo: AnimeFullData?,
-    monkxInfo: AnimeInfo?
+    monkxInfo: AnimeInfo?,
+    imagesInfo: ImagesEntity?,
 ): AnimeInfoEntity {
     jikaxInfo?.let { jikan ->
         jikan.anime?.let { jikax ->
@@ -56,7 +58,8 @@ suspend fun toAnimeInfoData(
                 licensors = jikax.licensors?.map { it.toCompanies() }.orEmpty(),
                 producers = jikax.producers?.map { it.toCompanies() }.orEmpty(),
                 theme = jikax.theme?.toThemes().orEmpty(),
-                relations = jikax.relations?.map { it.toRelated() }.orEmpty()
+                relations = jikax.relations?.map { it.toRelated() }.orEmpty(),
+                gallery = imagesInfo?.images.orEmpty()
             )
 
             monkxInfo?.let { monkx ->
