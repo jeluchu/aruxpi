@@ -15,11 +15,9 @@ repositories {
 }
 
 group = "com.jeluchu.aruxpi"
-version = "1.0.0-beta02"
+version = "1.0.0-beta03"
 
 dependencies {
-    implementation(libs.bundles.gson)
-    implementation(libs.bundles.ktor)
     implementation(libs.bundles.jeluchu)
     testImplementation(libs.bundles.junit)
     testImplementation(libs.bundles.coroutines)
@@ -48,7 +46,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.jeluchu"
             artifactId = "aruxpi"
-            version = "1.0.0-beta02"
+            version = "1.0.0-beta03"
 
             from(components["kotlin"])
         }

@@ -1,11 +1,9 @@
 package com.jeluchu.aruxpi
 
-import com.jeluchu.aruxpi.core.connection.DirectoryClient
 import com.jeluchu.aruxpi.core.enums.Ratings
 import com.jeluchu.aruxpi.core.enums.Seasons
 import com.jeluchu.aruxpi.core.enums.Sources
 import com.jeluchu.aruxpi.core.enums.TopStates
-import com.jeluchu.aruxpi.core.extensions.getMalId
 import com.jeluchu.aruxpi.core.extensions.orZero
 import com.jeluchu.aruxpi.core.extensions.toAiringTime
 import com.jeluchu.aruxpi.core.extensions.toAnimeSearch
@@ -19,8 +17,8 @@ import com.jeluchu.aruxpi.extractor.data.getJikaxInfo
 import com.jeluchu.aruxpi.extractor.data.getMonksInfo
 import com.jeluchu.aruxpi.extractor.data.toAnimeInfoData
 import com.jeluchu.aruxpi.models.anime.AnimeInfoEntity
-import com.jeluchu.aruxpi.models.directory.Directory
 import com.jeluchu.aruxpi.models.episodes.toEpisodeItem
+import com.jeluchu.aruxpi.models.images.toImagesEntity
 import com.jeluchu.aruxpi.models.schedule.AnimesInDay
 import com.jeluchu.aruxpi.models.schedule.Days
 import com.jeluchu.aruxpi.models.schedule.Week
@@ -32,11 +30,10 @@ import com.jeluchu.aruxpi.models.top.Top
 import com.jeluchu.jikax.Jikax
 import com.jeluchu.jikax.models.schedule.Day
 import com.jeluchu.monkx.Monkx
+import com.jeluchu.qwanx.Qwanx
 import com.jeluchu.tioxime.Tioxime
 
 object Aruxpi {
-    private var directoryClient = DirectoryClient()
-
     /**
      * Function to get all anime returned after a search.
      * @return List of anime that have a similar title to the one in the query
@@ -275,29 +272,12 @@ object Aruxpi {
     }
 
     /**
-     * Function to get last episodes from MonosChinos
-     * @return List of lasted animes.
+     * Function to get all animes in current season.
+     * @return List of animes.
      */
-    suspend fun getDirectory(): Directory {
-        val directory = directoryClient.request()
-
-        return Directory(
-            lastUpdate = directory.lastUpdate.orEmpty(),
-            data = mutableListOf<Directory.Anime>().apply {
-                directory.data?.let { sources ->
-                    sources.forEach { source ->
-                        getMalId("https://myanimelist.net/", source.sources.orEmpty())?.let { id ->
-                            add(
-                                Directory.Anime(
-                                    mailId = id,
-                                    title = source.title.orEmpty(),
-                                    image = source.picture.orEmpty()
-                                )
-                            )
-                        }
-                    }
-                }
-            }
-        )
-    }
+    suspend fun getImages(
+        query: String,
+        limit: Int = 50,
+        locale: String = "es_ES"
+    ) = Qwanx.getSearchImages(query, limit, locale).toImagesEntity(query)
 }

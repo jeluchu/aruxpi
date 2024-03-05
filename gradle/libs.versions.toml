@@ -7,6 +7,7 @@ kotlinx-coroutines="1.7.3"
 [libraries]
 jeluchu-monkx = "com.github.jeluchu:monkx:1.0.8"
 jeluchu-jikax = "com.github.jeluchu:jikax:0.6.1"
+jeluchu-qwanx = "com.github.jeluchu:qwanx:1.0.0-alpha02"
 jeluchu-tioxime = "com.github.jeluchu:tioxime:1.0.0"
 google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -19,6 +20,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 jeluchu = [
     "jeluchu-monkx",
     "jeluchu-jikax",
+    "jeluchu-qwanx",
     "jeluchu-tioxime",
 ]
 
