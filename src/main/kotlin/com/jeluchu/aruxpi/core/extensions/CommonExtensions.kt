@@ -21,9 +21,3 @@ fun getMalId(urlBase: String, urls: List<String>): Int? {
     }
     return null
 }
-
-fun String.parseRssDate(format: String = "dd/MM/yyyy HH:mm:ss"): String {
-    val date = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ROOT).parse(this)
-    val outputDateFormat = SimpleDateFormat(format, Locale.ROOT)
-    return outputDateFormat.format(date)
-}
