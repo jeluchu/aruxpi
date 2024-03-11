@@ -1,5 +1,8 @@
 package com.jeluchu.aruxpi.core.extensions
 
+import java.text.SimpleDateFormat
+import java.util.Locale
+
 fun Int.Companion.zero() = 0
 fun String.Companion.empty() = ""
 fun Int?.orZero(): Int = this ?: 0
@@ -17,4 +20,10 @@ fun getMalId(urlBase: String, urls: List<String>): Int? {
         if (url.startsWith(urlBase)) return url.filter { it.isDigit() }.toInt()
     }
     return null
+}
+
+fun String.parseRssDate(format: String = "dd/MM/yyyy HH:mm:ss"): String {
+    val date = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ROOT).parse(this)
+    val outputDateFormat = SimpleDateFormat(format, Locale.ROOT)
+    return outputDateFormat.format(date)
 }

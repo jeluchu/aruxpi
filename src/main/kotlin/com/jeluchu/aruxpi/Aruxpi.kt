@@ -1,5 +1,7 @@
 package com.jeluchu.aruxpi
 
+import com.jeluchu.aruxpi.core.constants.NewsSources
+import com.jeluchu.aruxpi.core.constants.Urls
 import com.jeluchu.aruxpi.core.enums.Ratings
 import com.jeluchu.aruxpi.core.enums.Seasons
 import com.jeluchu.aruxpi.core.enums.Sources
@@ -10,6 +12,7 @@ import com.jeluchu.aruxpi.core.extensions.toAnimeSearch
 import com.jeluchu.aruxpi.core.extensions.toAnimeSeason
 import com.jeluchu.aruxpi.core.extensions.toAnimesInDay
 import com.jeluchu.aruxpi.core.extensions.toEpisodeServer
+import com.jeluchu.aruxpi.core.extensions.toNews
 import com.jeluchu.aruxpi.core.extensions.toRating
 import com.jeluchu.aruxpi.core.extensions.toTopFilter
 import com.jeluchu.aruxpi.core.extensions.toTopTime
@@ -18,6 +21,7 @@ import com.jeluchu.aruxpi.extractor.data.getMonksInfo
 import com.jeluchu.aruxpi.extractor.data.toAnimeInfoData
 import com.jeluchu.aruxpi.models.anime.AnimeInfoEntity
 import com.jeluchu.aruxpi.models.episodes.toEpisodeItem
+import com.jeluchu.aruxpi.models.news.New
 import com.jeluchu.aruxpi.models.images.toImagesEntity
 import com.jeluchu.aruxpi.models.schedule.AnimesInDay
 import com.jeluchu.aruxpi.models.schedule.Days
@@ -32,6 +36,7 @@ import com.jeluchu.jikax.models.schedule.Day
 import com.jeluchu.monkx.Monkx
 import com.jeluchu.qwanx.Qwanx
 import com.jeluchu.tioxime.Tioxime
+import com.prof18.rssparser.RssParser
 
 object Aruxpi {
     /**
@@ -133,7 +138,7 @@ object Aruxpi {
         )
 
         var index = 0
-        val animes = response.data.map{ anime ->
+        val animes = response.data.map { anime ->
             index++
             anime.toTopTime(
                 rank = index,
@@ -280,4 +285,16 @@ object Aruxpi {
         limit: Int = 50,
         locale: String = "es_ES"
     ) = Qwanx.getSearchImages(query, limit, locale).toImagesEntity(query)
+
+    /**
+     * Function to get servers by episode from MonosChinos
+     * @return List of servers.
+     */
+    suspend fun getNews() = mutableListOf<New>().apply {
+        with(RssParser()) {
+            getRssChannel(Urls.mangaLatam).toNews(NewsSources.mangaLatam,this@apply)
+            getRssChannel(Urls.somosKudasai).toNews(NewsSources.somosKudasai,this@apply)
+            getRssChannel(Urls.crunchyroll).toNews(NewsSources.crunchyroll,this@apply)
+        }
+    }.shuffled()
 }

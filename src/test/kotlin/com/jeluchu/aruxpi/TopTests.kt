@@ -19,8 +19,40 @@ class TopTests {
     }
 
     @Test
+    fun `on getTop pass upcoming and filter return 25 anime top`() {
+        val filter = TopStates.upcoming
+        val result = runBlocking { Aruxpi.getAnimeTop(filter) }
+        assertEquals(25, result.size)
+        runBlocking { delay(3000) }
+    }
+
+    @Test
+    fun `on getTop pass bypopularity and filter return 25 anime top`() {
+        val filter = TopStates.bypopularity
+        val result = runBlocking { Aruxpi.getAnimeTop(filter) }
+        assertEquals(25, result.size)
+        runBlocking { delay(3000) }
+    }
+
+    @Test
+    fun `on getTop pass favorite and filter return 25 anime top`() {
+        val filter = TopStates.favorite
+        val result = runBlocking { Aruxpi.getAnimeTop(filter) }
+        assertEquals(25, result.size)
+        runBlocking { delay(3000) }
+    }
+
+    @Test
     fun `on getAllAnimeTop params and return all animes in top`() {
         val filter = TopStates.airing
+        val result = runBlocking { Aruxpi.getAllAnimeTop(filter) }
+        assertTrue(result.isNotEmpty())
+        runBlocking { delay(3000) }
+    }
+
+    @Test
+    fun `on getAllAnimeTop filter bypopularity and return all animes in top`() {
+        val filter = TopStates.favorite
         val result = runBlocking { Aruxpi.getAllAnimeTop(filter) }
         assertTrue(result.isNotEmpty())
         runBlocking { delay(3000) }

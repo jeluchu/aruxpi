@@ -22,6 +22,7 @@ import com.jeluchu.aruxpi.models.anime.Themes
 import com.jeluchu.aruxpi.models.anime.VideoPromo
 import com.jeluchu.aruxpi.models.anime.VideoPromo.Companion.orEmpty
 import com.jeluchu.aruxpi.models.episodes.EpisodeServer
+import com.jeluchu.aruxpi.models.news.New
 import com.jeluchu.aruxpi.models.schedule.AnimesInDay
 import com.jeluchu.aruxpi.models.search.AnimeSearch
 import com.jeluchu.aruxpi.models.seasons.AnimeSeason
@@ -51,6 +52,7 @@ import com.jeluchu.jikax.models.seasons.SeasonInfo
 import com.jeluchu.jikax.models.staff.Person
 import com.jeluchu.jikax.models.staff.StaffInfo
 import com.jeluchu.monkx.models.anime.AnimeEpisode
+import com.prof18.rssparser.model.RssChannel
 import java.util.Calendar
 
 fun AnimeData.toAnimesInDay() = AnimesInDay(
@@ -274,3 +276,24 @@ fun com.jeluchu.tioxime.models.servers.Server.toEpisodeServer() = EpisodeServer(
     id = id,
     url = url
 )
+
+fun RssChannel.toNews(
+    source: String,
+    list: MutableList<New>
+) = list.apply{
+    items.forEach { item ->
+        add(
+            New(
+                source = source,
+                sourceDescription = description.orEmpty(),
+                link = item.link.orEmpty(),
+                title = item.title.orEmpty(),
+                date = item.pubDate?.parseRssDate().orEmpty(),
+                description = item.description.orEmpty(),
+                content = item.content.orEmpty(),
+                image = item.image.orEmpty(),
+                categories = item.categories,
+            )
+        )
+    }
+}
