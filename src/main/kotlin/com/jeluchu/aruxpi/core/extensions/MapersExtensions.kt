@@ -288,7 +288,7 @@ fun RssChannel.toNews(
                 sourceDescription = description.orEmpty(),
                 link = item.link.orEmpty(),
                 title = item.title.orEmpty(),
-                date = item.pubDate.orEmpty(),
+                date = item.pubDate?.parseRssDate().orEmpty(),
                 description = item.description.orEmpty(),
                 content = item.content.orEmpty(),
                 image = item.image.orEmpty(),
